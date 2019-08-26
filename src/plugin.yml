@@ -1,0 +1,18 @@
+main: plugin.mcsl.main.MainClass
+version: 2.0
+name: MinecraftServerLauncher
+description: Official Minecraft Server Launcher application plugin
+author: S3nS3IW00
+website: https://mcsl.app
+
+commands:
+  mcserverlauncher:
+    aliases: [mcsl]
+    usage: <command>
+    default: op
+    description: Main command of Minecraft Server Launcher
+    permission: mcserverlauncher.command
+
+permissions:
+  mcserverlauncher.command:
+    default: op

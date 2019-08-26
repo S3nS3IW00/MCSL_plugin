@@ -1,0 +1,10 @@
+#==================================================#
+#   Minecraft Server Launcher plugin config file   #
+#==================================================#
+
+# Languages: en, hu
+# auto means the launcher will adjust the language to the system's language
+language: auto
+
+# Specify the communication port (don't give the same as the server's)
+port: 9999

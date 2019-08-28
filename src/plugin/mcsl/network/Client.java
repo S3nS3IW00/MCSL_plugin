@@ -3,7 +3,7 @@ package plugin.mcsl.network;
 import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import plugin.mcsl.main.MainClass;
+import plugin.mcsl.MainClass;
 import plugin.mcsl.managers.CommandManager;
 import plugin.mcsl.managers.Language;
 import plugin.mcsl.managers.User;

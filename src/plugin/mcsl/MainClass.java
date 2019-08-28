@@ -1,4 +1,4 @@
-package plugin.mcsl.main;
+package plugin.mcsl;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.mcsl.commands.Command;

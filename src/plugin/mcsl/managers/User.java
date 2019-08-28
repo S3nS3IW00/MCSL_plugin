@@ -1,6 +1,6 @@
 package plugin.mcsl.managers;
 
-import plugin.mcsl.main.MainClass;
+import plugin.mcsl.MainClass;
 import plugin.mcsl.network.Client;
 
 public class User {

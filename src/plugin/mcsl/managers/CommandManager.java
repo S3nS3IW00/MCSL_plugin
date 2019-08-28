@@ -2,7 +2,7 @@ package plugin.mcsl.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
-import plugin.mcsl.main.MainClass;
+import plugin.mcsl.MainClass;
 import plugin.mcsl.network.Client;
 import plugin.mcsl.utils.Utils;
 

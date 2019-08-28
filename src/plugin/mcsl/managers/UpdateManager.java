@@ -1,6 +1,6 @@
 package plugin.mcsl.managers;
 
-import plugin.mcsl.main.MainClass;
+import plugin.mcsl.MainClass;
 
 import java.io.BufferedReader;
 import java.io.IOException;

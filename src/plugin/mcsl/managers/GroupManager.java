@@ -2,7 +2,7 @@ package plugin.mcsl.managers;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import plugin.mcsl.main.MainClass;
+import plugin.mcsl.MainClass;
 import plugin.mcsl.utils.Utils;
 
 import java.util.ArrayList;

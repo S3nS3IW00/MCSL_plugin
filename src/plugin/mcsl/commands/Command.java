@@ -2,7 +2,7 @@ package plugin.mcsl.commands;
 
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import plugin.mcsl.main.MainClass;
+import plugin.mcsl.MainClass;
 import plugin.mcsl.managers.HashManager;
 import plugin.mcsl.managers.Language;
 import plugin.mcsl.managers.User;

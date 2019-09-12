@@ -6,11 +6,7 @@ import plugin.mcsl.utils.Utils;
 
 public class UserManager {
 
-    public UserManager() {
-        checkJson();
-    }
-
-    public void checkJson() {
+    public static void checkJson() {
         for (String user : MainClass.getUsers().getDefaults().keySet()) {
             JSONObject jsonObject = MainClass.getUsers().getObject(user);
             if (jsonObject.get("password") == null) {
@@ -23,7 +19,7 @@ public class UserManager {
         MainClass.getUsers().save();
     }
 
-    public void add(String username, String password, String group) {
+    public static void add(String username, String password, String group) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("password", password);
         jsonObject.put("group", group);
@@ -32,37 +28,37 @@ public class UserManager {
         MainClass.getUsers().save();
     }
 
-    public void remove(String username) {
+    public static void remove(String username) {
         MainClass.getUsers().getDefaults().remove(username);
         MainClass.getUsers().save();
     }
 
-    public boolean isUserExists(String username) {
+    public static boolean isUserExists(String username) {
         return MainClass.getUsers().getDefaults().containsKey(username);
     }
 
-    public boolean isPasswordExists(String username, String passwordHash) {
+    public static boolean isPasswordExists(String username, String passwordHash) {
         return MainClass.getUsers().getObject(username).get("password").toString().equalsIgnoreCase(passwordHash);
     }
 
-    public void setPassword(String username, String password) {
+    public static void setPassword(String username, String password) {
         JSONObject getUser = MainClass.getUsers().getObject(username);
         getUser.replace("password", HashManager.cuttedHash(password));
         MainClass.getUsers().save();
     }
 
-    public void setGroup(String username, String group) {
+    public static void setGroup(String username, String group) {
         JSONObject getUser = MainClass.getUsers().getObject(username);
         getUser.replace("group", group);
         MainClass.getUsers().save();
     }
 
-    public String getGroup(String username) {
+    public static String getGroup(String username) {
         JSONObject getUser = MainClass.getUsers().getObject(username);
         return getUser.get("group").toString();
     }
 
-    public boolean isJoinedUser(String username) {
+    public static boolean isJoinedUser(String username) {
         for (User user : Utils.connectedUsers) {
             if (user.getUsername().equalsIgnoreCase(username)) {
                 return true;
@@ -71,7 +67,7 @@ public class UserManager {
         return false;
     }
 
-    public User getUserFromUsername(String username) {
+    public static User getUserFromUsername(String username) {
         for (User user : Utils.connectedUsers) {
             if (user.getUsername().equalsIgnoreCase(username)) {
                 return user;

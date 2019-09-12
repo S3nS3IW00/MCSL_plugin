@@ -17,24 +17,11 @@ import java.util.zip.ZipInputStream;
 
 public class FileManager {
 
-    private File root, serverRoot, chatLog;
-    private FileWriter chatLogWriter;
+    private static File root, serverRoot, chatLog;
+    private static FileWriter chatLogWriter;
 
-    public FileManager(File root, File serverRoot) {
-        this.root = root;
-        this.serverRoot = serverRoot;
-    }
-
-    public File getRoot() {
-        return root;
-    }
-
-    public File getServerRoot() {
-        return serverRoot;
-    }
-
-    public void checkFiles() {
-        chatLog = new File(root + File.separator + "chatlog.txt");
+    public static void checkFiles() {
+        chatLog = new File(getRoot() + File.separator + "chatlog.txt");
         if (!chatLog.exists()) {
             try {
                 chatLog.createNewFile();
@@ -58,11 +45,11 @@ public class FileManager {
         }
     }
 
-    public File getChatLog() {
+    public static File getChatLog() {
         return chatLog;
     }
 
-    public void writeToChatLog(String text) {
+    public static void writeToChatLog(String text) {
         if (text != null) {
             try {
                 chatLogWriter.write(text + "\n");
@@ -73,7 +60,7 @@ public class FileManager {
         }
     }
 
-    public List<String> getFileNamesInJarPath(String jarPath) {
+    public static List<String> getFileNamesInJarPath(String jarPath) {
         List<String> fileNames = new ArrayList<>();
         CodeSource src = MainClass.class.getProtectionDomain().getCodeSource();
         try {
@@ -99,25 +86,41 @@ public class FileManager {
         return fileNames;
     }
 
-    public Set<String> getUsers() {
+    public static Set<String> getUsers() {
         return MainClass.getUsers().getDefaults().keySet();
     }
 
-    public String getUserGroup(String name) {
+    public static String getUserGroup(String name) {
         return ((JSONObject) MainClass.getUsers().getDefaults().get(name)).get("group").toString();
     }
 
-    public Set<String> getGroups() {
+    public static Set<String> getGroups() {
         return MainClass.getGroups().getDefaults().keySet();
     }
 
-    public List<String> getGroupPermissions(String group) {
+    public static List<String> getGroupPermissions(String group) {
         JSONArray jsonArray = ((JSONArray) ((JSONObject) MainClass.getGroups().getDefaults().get(group)).get("permissions"));
         List<String> groupPerms = new ArrayList<>();
         for (int i = 0; i < jsonArray.size(); i++) {
             groupPerms.add(jsonArray.get(i).toString());
         }
         return groupPerms;
+    }
+
+    public static void setRoot(File root) {
+        FileManager.root = root;
+    }
+
+    public static void setServerRoot(File serverRoot) {
+        FileManager.serverRoot = serverRoot;
+    }
+
+    public static File getRoot() {
+        return root;
+    }
+
+    public static File getServerRoot() {
+        return serverRoot;
     }
 
 }

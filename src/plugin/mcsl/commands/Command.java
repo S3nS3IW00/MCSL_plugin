@@ -3,9 +3,7 @@ package plugin.mcsl.commands;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import plugin.mcsl.MainClass;
-import plugin.mcsl.managers.HashManager;
-import plugin.mcsl.managers.Language;
-import plugin.mcsl.managers.User;
+import plugin.mcsl.managers.*;
 import plugin.mcsl.network.Server;
 import plugin.mcsl.utils.Utils;
 
@@ -16,8 +14,8 @@ public class Command implements CommandExecutor {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("adduser")) {
                 if (args.length > 3) {
-                    if (!MainClass.getUserManager().isUserExists(args[1])) {
-                        MainClass.getUserManager().add(args[1], HashManager.cuttedHash(args[2]), args[3]);
+                    if (!UserManager.isUserExists(args[1])) {
+                        UserManager.add(args[1], HashManager.cuttedHash(args[2]), args[3]);
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("useradded"));
                     } else {
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("useralreadyexists"));
@@ -27,11 +25,11 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("removeuser")) {
                 if (args.length > 1) {
-                    if (MainClass.getUserManager().isUserExists(args[1])) {
-                        MainClass.getUserManager().remove(args[1]);
+                    if (UserManager.isUserExists(args[1])) {
+                        UserManager.remove(args[1]);
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("userremoved"));
-                        if (MainClass.getUserManager().isJoinedUser(args[1]))
-                            MainClass.getUserManager().getUserFromUsername(args[1]).getClient().kick();
+                        if (UserManager.isJoinedUser(args[1]))
+                            UserManager.getUserFromUsername(args[1]).getClient().kick();
                     } else {
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("usernotexists"));
                     }
@@ -40,9 +38,9 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("addpermission")) {
                 if (args.length > 2) {
-                    if (MainClass.getGroupManager().isGroupExists(args[1])) {
-                        if (!MainClass.getGroupManager().hasPermission(args[1], args[2])) {
-                            MainClass.getGroupManager().addPermission(args[1], args[2]);
+                    if (GroupManager.isGroupExists(args[1])) {
+                        if (!GroupManager.hasPermission(args[1], args[2])) {
+                            GroupManager.addPermission(args[1], args[2]);
                             sender.sendMessage(MainClass.getPrefix() + Language.getText("permissionadded"));
                         } else {
                             sender.sendMessage(MainClass.getPrefix() + Language.getText("permissionalreadyexists"));
@@ -55,9 +53,9 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("removepermission")) {
                 if (args.length > 2) {
-                    if (MainClass.getGroupManager().isGroupExists(args[1])) {
-                        if (MainClass.getGroupManager().hasPermission(args[1], args[2])) {
-                            MainClass.getGroupManager().removePermission(args[1], args[2]);
+                    if (GroupManager.isGroupExists(args[1])) {
+                        if (GroupManager.hasPermission(args[1], args[2])) {
+                            GroupManager.removePermission(args[1], args[2]);
                             sender.sendMessage(MainClass.getPrefix() + Language.getText("permissionremoved"));
                         } else {
                             sender.sendMessage(MainClass.getPrefix() + Language.getText("permissionnotexists"));
@@ -70,8 +68,8 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("addgroup")) {
                 if (args.length > 1) {
-                    if (!MainClass.getGroupManager().isGroupExists(args[1])) {
-                        MainClass.getGroupManager().add(args[1]);
+                    if (!GroupManager.isGroupExists(args[1])) {
+                        GroupManager.add(args[1]);
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("groupadded"));
                     } else {
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("groupalreadyexists"));
@@ -81,11 +79,11 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("removegroup")) {
                 if (args.length > 1) {
-                    if (MainClass.getGroupManager().isGroupExists(args[1])) {
-                        if (!MainClass.getGroupManager().hasGroupUser(args[1])) {
-                            MainClass.getGroupManager().remove(args[1]);
+                    if (GroupManager.isGroupExists(args[1])) {
+                        if (!GroupManager.hasGroupUser(args[1])) {
+                            GroupManager.remove(args[1]);
                             sender.sendMessage(MainClass.getPrefix() + Language.getText("groupremoved"));
-                            if (MainClass.getGroupManager().isJoinedGroup(args[1])) {
+                            if (GroupManager.isJoinedGroup(args[1])) {
                                 for (User user : Utils.connectedUsers) {
                                     if (user.getGroup().equalsIgnoreCase(args[1])) {
                                         user.getClient().kick();
@@ -103,11 +101,11 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("changeuserpassword")) {
                 if (args.length > 2) {
-                    if (MainClass.getUserManager().isUserExists(args[1])) {
-                        MainClass.getUserManager().setPassword(args[1], args[2]);
+                    if (UserManager.isUserExists(args[1])) {
+                        UserManager.setPassword(args[1], args[2]);
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("passwordchanged"));
-                        if (MainClass.getUserManager().isJoinedUser(args[1]))
-                            MainClass.getUserManager().getUserFromUsername(args[1]).getClient().kick();
+                        if (UserManager.isJoinedUser(args[1]))
+                            UserManager.getUserFromUsername(args[1]).getClient().kick();
                     } else {
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("usernotexists"));
                     }
@@ -116,11 +114,11 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("changeusergroup")) {
                 if (args.length > 2) {
-                    if (MainClass.getUserManager().isUserExists(args[1])) {
-                        MainClass.getUserManager().setGroup(args[1], args[2]);
+                    if (UserManager.isUserExists(args[1])) {
+                        UserManager.setGroup(args[1], args[2]);
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("groupchanged"));
-                        if (MainClass.getUserManager().isJoinedUser(args[1]))
-                            MainClass.getUserManager().getUserFromUsername(args[1]).getClient().kick();
+                        if (UserManager.isJoinedUser(args[1]))
+                            UserManager.getUserFromUsername(args[1]).getClient().kick();
                     } else {
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("usernotexists"));
                     }
@@ -129,9 +127,9 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("togglechatmode")) {
                 if (args.length > 1) {
-                    if (MainClass.getGroupManager().isGroupExists(args[1])) {
-                        MainClass.getGroupManager().setChatMode(args[1], !MainClass.getGroupManager().isChatModeEnabled(args[1]));
-                        sender.sendMessage(MainClass.getPrefix() + Language.getText("chatmodechanged", Language.getText(MainClass.getGroupManager().isChatModeEnabled(args[1]) ? "on" : "off")));
+                    if (GroupManager.isGroupExists(args[1])) {
+                        GroupManager.setChatMode(args[1], !GroupManager.isChatModeEnabled(args[1]));
+                        sender.sendMessage(MainClass.getPrefix() + Language.getText("chatmodechanged", Language.getText(GroupManager.isChatModeEnabled(args[1]) ? "on" : "off")));
                     } else {
                         sender.sendMessage(MainClass.getPrefix() + Language.getText("groupnotexists"));
                     }
@@ -139,9 +137,9 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(MainClass.getPrefix() + Language.getText("togglechatmodeusage"));
                 }
             } else if (args[0].equalsIgnoreCase("grouplist")) {
-                if (MainClass.getFileManager().getGroups().size() > 0) {
+                if (FileManager.getGroups().size() > 0) {
                     sender.sendMessage("-----[MinecraftServerLauncher]-----");
-                    for (String group : MainClass.getFileManager().getGroups()) {
+                    for (String group : FileManager.getGroups()) {
                         sender.sendMessage("- " + group);
                     }
                     sender.sendMessage("-----[]-----");
@@ -149,10 +147,10 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(MainClass.getPrefix() + Language.getText("nogroupfoundalert"));
                 }
             } else if (args[0].equalsIgnoreCase("userlist")) {
-                if (MainClass.getFileManager().getUsers().size() > 0) {
+                if (FileManager.getUsers().size() > 0) {
                     sender.sendMessage("-----[MinecraftServerLauncher]-----");
-                    for (String user : MainClass.getFileManager().getUsers()) {
-                        sender.sendMessage("- " + Language.getText("username") + ": " + user + " | " + Language.getText("group") + ": " + MainClass.getFileManager().getUserGroup(user));
+                    for (String user : FileManager.getUsers()) {
+                        sender.sendMessage("- " + Language.getText("username") + ": " + user + " | " + Language.getText("group") + ": " + FileManager.getUserGroup(user));
                     }
                     sender.sendMessage("-----[]-----");
                 } else {
@@ -170,10 +168,10 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("permissionlist")) {
                 if (args.length > 1) {
-                    if (MainClass.getGroupManager().isGroupExists(args[1])) {
-                        if (MainClass.getGroupManager().getPermissions(args[1]).size() > 0) {
+                    if (GroupManager.isGroupExists(args[1])) {
+                        if (GroupManager.getPermissions(args[1]).size() > 0) {
                             sender.sendMessage("-----[MinecraftServerLauncher]-----");
-                            for (String permission : MainClass.getFileManager().getGroupPermissions(args[1])) {
+                            for (String permission : FileManager.getGroupPermissions(args[1])) {
                                 sender.sendMessage("- " + permission);
                             }
                             sender.sendMessage("-----[]-----");
@@ -188,9 +186,9 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("kick")) {
                 if (args.length > 1) {
-                    if (MainClass.getUserManager().isUserExists(args[1])) {
-                        if (MainClass.getUserManager().isJoinedUser(args[1])) {
-                            MainClass.getUserManager().getUserFromUsername(args[1]).getClient().kick();
+                    if (UserManager.isUserExists(args[1])) {
+                        if (UserManager.isJoinedUser(args[1])) {
+                            UserManager.getUserFromUsername(args[1]).getClient().kick();
                         } else {
                             sender.sendMessage(MainClass.getPrefix() + Language.getText("clientnotconnected"));
                         }

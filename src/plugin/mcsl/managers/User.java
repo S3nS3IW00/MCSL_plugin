@@ -1,6 +1,5 @@
 package plugin.mcsl.managers;
 
-import plugin.mcsl.MainClass;
 import plugin.mcsl.network.Client;
 
 public class User {
@@ -12,7 +11,7 @@ public class User {
         this.username = username;
         this.address = address;
         this.client = client;
-        this.group = MainClass.getUserManager().getGroup(username);
+        this.group = UserManager.getGroup(username);
     }
 
     public String getUsername() {
@@ -28,7 +27,7 @@ public class User {
     }
 
     public boolean hasPermission(String permission) {
-        return MainClass.getGroupManager().hasPermission(getGroup(), permission);
+        return GroupManager.hasPermission(getGroup(), permission);
     }
 
     public Client getClient() {

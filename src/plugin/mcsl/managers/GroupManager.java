@@ -10,11 +10,7 @@ import java.util.List;
 
 public class GroupManager {
 
-    public GroupManager() {
-        checkJson();
-    }
-
-    public void checkJson() {
+    public static void checkJson() {
         for (String group : MainClass.getGroups().getDefaults().keySet()) {
             JSONObject jsonObject = MainClass.getGroups().getObject(group);
             if (jsonObject.get("chatMode") == null) {
@@ -27,7 +23,7 @@ public class GroupManager {
         MainClass.getGroups().save();
     }
 
-    public void add(String group) {
+    public static void add(String group) {
         JSONArray jsonArray = new JSONArray();
 
         JSONObject jsonObject = new JSONObject();
@@ -38,17 +34,17 @@ public class GroupManager {
         MainClass.getGroups().save();
     }
 
-    public void remove(String group) {
+    public static void remove(String group) {
         MainClass.getGroups().getDefaults().remove(group);
         MainClass.getGroups().save();
         MainClass.getGroups().reload();
     }
 
-    public boolean isGroupExists(String group) {
+    public static boolean isGroupExists(String group) {
         return MainClass.getGroups().getDefaults().containsKey(group);
     }
 
-    public List<String> getPermissions(String group) {
+    public static List<String> getPermissions(String group) {
         List<String> permissions = new ArrayList<>();
         JSONArray permissionsArray = (JSONArray) MainClass.getGroups().getObject(group).get("permissions");
         for (int i = 0; i < permissionsArray.size(); i++) {
@@ -57,18 +53,18 @@ public class GroupManager {
         return permissions;
     }
 
-    public boolean hasPermission(String group, String permission) {
+    public static boolean hasPermission(String group, String permission) {
         return getPermissions(group).contains(permission);
     }
 
-    public void addPermission(String group, String permission) {
+    public static void addPermission(String group, String permission) {
         JSONObject getUser = MainClass.getGroups().getObject(group);
         JSONArray getArray = (JSONArray) getUser.get("permissions");
         getArray.add(permission);
         MainClass.getGroups().save();
     }
 
-    public void removePermission(String group, String permission) {
+    public static void removePermission(String group, String permission) {
         JSONObject getUser = MainClass.getGroups().getObject(group);
         JSONArray getArray = (JSONArray) getUser.get("permissions");
         if (hasPermission(group, permission)) {
@@ -77,7 +73,7 @@ public class GroupManager {
         }
     }
 
-    public boolean isJoinedGroup(String group) {
+    public static boolean isJoinedGroup(String group) {
         for (User user : Utils.connectedUsers) {
             if (user.getGroup().equalsIgnoreCase(group)) {
                 return true;
@@ -86,20 +82,20 @@ public class GroupManager {
         return false;
     }
 
-    public boolean hasGroupUser(String group) {
+    public static boolean hasGroupUser(String group) {
         for (String username : MainClass.getUsers().getDefaults().keySet()) {
-            if (MainClass.getUserManager().getGroup(username).equalsIgnoreCase(group)) {
+            if (UserManager.getGroup(username).equalsIgnoreCase(group)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isChatModeEnabled(String group) {
+    public static boolean isChatModeEnabled(String group) {
         return (boolean) ((JSONObject) MainClass.getGroups().getDefaults().get(group)).get("chatMode");
     }
 
-    public void setChatMode(String group, boolean enabled) {
+    public static void setChatMode(String group, boolean enabled) {
         JSONObject getGroup = MainClass.getGroups().getObject(group);
         getGroup.replace("chatMode", enabled);
         MainClass.getGroups().save();

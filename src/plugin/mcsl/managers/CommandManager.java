@@ -48,10 +48,10 @@ public class CommandManager {
     }
 
     public void runCommand(String data) {
-        if (MainClass.getGroupManager().isChatModeEnabled(client.getUser().getGroup()) && !data.startsWith("#disconnect")) {
+        if (GroupManager.isChatModeEnabled(client.getUser().getGroup()) && !data.startsWith("#disconnect")) {
             Bukkit.broadcastMessage("[" + client.getUser().getUsername() + "] " + data);
             client.sendData(prefix + "[" + client.getUser().getUsername() + "] " + data);
-            MainClass.getFileManager().writeToChatLog(prefix + "[" + client.getUser().getUsername() + "] " + data);
+            FileManager.writeToChatLog(prefix + "[" + client.getUser().getUsername() + "] " + data);
         } else {
             if (isCommand(data)) {
                 switch (getCommand(data)) {
@@ -68,9 +68,9 @@ public class CommandManager {
                                 msg.append(arg).append(" ");
                             }
                             Bukkit.broadcastMessage("[" + client.getUser().getUsername() + "] " + msg);
-                            MainClass.getFileManager().writeToChatLog(prefix + "[" + client.getUser().getUsername() + "] " + msg);
+                            FileManager.writeToChatLog(prefix + "[" + client.getUser().getUsername() + "] " + msg);
                             for (User user : Utils.connectedUsers) {
-                                if (MainClass.getGroupManager().isChatModeEnabled(user.getGroup())) {
+                                if (GroupManager.isChatModeEnabled(user.getGroup())) {
                                     user.getClient().sendData(prefix + "[" + client.getUser().getUsername() + "] " + msg);
                                 }
                             }

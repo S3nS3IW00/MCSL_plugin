@@ -3,10 +3,7 @@ package plugin.mcsl.network;
 import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import plugin.mcsl.MainClass;
-import plugin.mcsl.managers.CommandManager;
-import plugin.mcsl.managers.Language;
-import plugin.mcsl.managers.User;
+import plugin.mcsl.managers.*;
 import plugin.mcsl.utils.Crypter;
 import plugin.mcsl.utils.Utils;
 
@@ -73,7 +70,7 @@ public class Client {
                 }
             }
 
-            if (MainClass.getUserManager().isUserExists(username) && MainClass.getUserManager().isPasswordExists(username, password)) {
+            if (UserManager.isUserExists(username) && UserManager.isPasswordExists(username, password)) {
                 User user = new User(username, client.getInetAddress().getHostAddress(), this);
                 Utils.connectedUsers.add(user);
                 setUser(user);
@@ -85,9 +82,9 @@ public class Client {
                 }
                 setAuth(true);
                 sendData("#showinfo;connectedtoserver");
-                if (!MainClass.getGroupManager().isChatModeEnabled(getUser().getGroup())) {
+                if (!GroupManager.isChatModeEnabled(getUser().getGroup())) {
                     try {
-                        for (String line : Files.readAllLines(new File(MainClass.getFileManager().getServerRoot().getAbsolutePath() + "/logs/latest.log").toPath(), Charset.forName("UTF-8"))) {
+                        for (String line : Files.readAllLines(new File(FileManager.getServerRoot().getAbsolutePath() + "/logs/latest.log").toPath(), Charset.forName("UTF-8"))) {
                             sendData(line.replaceAll("] \\[.+/", " "));
                         }
                     } catch (IOException e) {
@@ -98,7 +95,7 @@ public class Client {
                 } else {
                     sendData("#showwarndialog;onlychat");
                     try {
-                        for (String line : Files.readAllLines(MainClass.getFileManager().getChatLog().toPath(), Charset.forName("UTF-8"))) {
+                        for (String line : Files.readAllLines(FileManager.getChatLog().toPath(), Charset.forName("UTF-8"))) {
                             sendData(line);
                         }
                     } catch (IOException e) {

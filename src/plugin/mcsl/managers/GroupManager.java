@@ -7,6 +7,7 @@ import plugin.mcsl.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class GroupManager {
 
@@ -38,6 +39,10 @@ public class GroupManager {
         MainClass.getGroups().getDefaults().remove(group);
         MainClass.getGroups().save();
         MainClass.getGroups().reload();
+    }
+
+    public static Set<String> getGroups() {
+        return MainClass.getGroups().getDefaults().keySet();
     }
 
     public static boolean isGroupExists(String group) {

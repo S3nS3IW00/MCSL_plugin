@@ -1,7 +1,5 @@
 package plugin.mcsl.managers;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import plugin.mcsl.MainClass;
 
 import java.io.File;
@@ -11,7 +9,6 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -84,27 +81,6 @@ public class FileManager {
             e.printStackTrace();
         }
         return fileNames;
-    }
-
-    public static Set<String> getUsers() {
-        return MainClass.getUsers().getDefaults().keySet();
-    }
-
-    public static String getUserGroup(String name) {
-        return ((JSONObject) MainClass.getUsers().getDefaults().get(name)).get("group").toString();
-    }
-
-    public static Set<String> getGroups() {
-        return MainClass.getGroups().getDefaults().keySet();
-    }
-
-    public static List<String> getGroupPermissions(String group) {
-        JSONArray jsonArray = ((JSONArray) ((JSONObject) MainClass.getGroups().getDefaults().get(group)).get("permissions"));
-        List<String> groupPerms = new ArrayList<>();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            groupPerms.add(jsonArray.get(i).toString());
-        }
-        return groupPerms;
     }
 
     public static void setRoot(File root) {

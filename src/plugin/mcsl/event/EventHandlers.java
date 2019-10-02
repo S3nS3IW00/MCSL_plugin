@@ -14,12 +14,14 @@ import java.util.Date;
 
 public class EventHandlers implements Listener {
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        String prefix = "[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " INFO]: ";
+        String prefix = "[" + sdf.format(new Date()) + " INFO]: ";
         FileManager.writeToChatLog(prefix + player.getName() + ": " + message);
 
         for (User user : Utils.connectedUsers) {

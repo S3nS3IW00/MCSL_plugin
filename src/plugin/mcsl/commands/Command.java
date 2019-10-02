@@ -141,9 +141,9 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(MainClass.getPrefix() + Language.getText("togglechatmodeusage"));
                 }
             } else if (args[0].equalsIgnoreCase("grouplist")) {
-                if (FileManager.getGroups().size() > 0) {
+                if (GroupManager.getGroups().size() > 0) {
                     sender.sendMessage("-----[MinecraftServerLauncher]-----");
-                    for (String group : FileManager.getGroups()) {
+                    for (String group : GroupManager.getGroups()) {
                         sender.sendMessage("- " + group);
                     }
                     sender.sendMessage("-----[]-----");
@@ -151,10 +151,10 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(MainClass.getPrefix() + Language.getText("nogroupfoundalert"));
                 }
             } else if (args[0].equalsIgnoreCase("userlist")) {
-                if (FileManager.getUsers().size() > 0) {
+                if (UserManager.getUsers().size() > 0) {
                     sender.sendMessage("-----[MinecraftServerLauncher]-----");
-                    for (String user : FileManager.getUsers()) {
-                        sender.sendMessage("- " + Language.getText("username") + ": " + user + " | " + Language.getText("group") + ": " + FileManager.getUserGroup(user));
+                    for (String user : UserManager.getUsers()) {
+                        sender.sendMessage("- " + Language.getText("username") + ": " + user + " | " + Language.getText("group") + ": " + UserManager.getUserGroup(user));
                     }
                     sender.sendMessage("-----[]-----");
                 } else {
@@ -175,7 +175,7 @@ public class Command implements CommandExecutor {
                     if (GroupManager.isGroupExists(args[1])) {
                         if (GroupManager.getPermissions(args[1]).size() > 0) {
                             sender.sendMessage("-----[MinecraftServerLauncher]-----");
-                            for (String permission : FileManager.getGroupPermissions(args[1])) {
+                            for (String permission : GroupManager.getPermissions(args[1])) {
                                 sender.sendMessage("- " + permission);
                             }
                             sender.sendMessage("-----[]-----");

@@ -4,6 +4,8 @@ import org.json.simple.JSONObject;
 import plugin.mcsl.MainClass;
 import plugin.mcsl.utils.Utils;
 
+import java.util.Set;
+
 public class UserManager {
 
     public static void checkJson() {
@@ -31,6 +33,14 @@ public class UserManager {
     public static void remove(String username) {
         MainClass.getUsers().getDefaults().remove(username);
         MainClass.getUsers().save();
+    }
+
+    public static Set<String> getUsers() {
+        return MainClass.getUsers().getDefaults().keySet();
+    }
+
+    public static String getUserGroup(String name) {
+        return ((JSONObject) MainClass.getUsers().getDefaults().get(name)).get("group").toString();
     }
 
     public static boolean isUserExists(String username) {

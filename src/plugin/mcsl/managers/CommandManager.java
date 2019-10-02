@@ -12,7 +12,7 @@ import java.util.Date;
 public class CommandManager {
 
     private Client client;
-    private String prefix = "[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + " INFO]: ";
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     public CommandManager(Client client) {
         this.client = client;
@@ -48,6 +48,8 @@ public class CommandManager {
     }
 
     public void runCommand(String data) {
+        String prefix = "[" + sdf.format(new Date()) + " INFO]: ";
+
         if (GroupManager.isChatModeEnabled(client.getUser().getGroup()) && !data.startsWith("#disconnect")) {
             Bukkit.broadcastMessage("[" + client.getUser().getUsername() + "] " + data);
             client.sendData(prefix + "[" + client.getUser().getUsername() + "] " + data);

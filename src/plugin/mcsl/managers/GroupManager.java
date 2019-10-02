@@ -5,15 +5,23 @@ import org.json.simple.JSONObject;
 import plugin.mcsl.MainClass;
 import plugin.mcsl.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class GroupManager {
 
-    public static void checkJson() {
-        for (String group : MainClass.getGroups().getDefaults().keySet()) {
-            JSONObject jsonObject = MainClass.getGroups().getObject(group);
+    private static JsonManager groups;
+
+    public static void init() {
+        groups = new JsonManager(new File(MainClass.getPluginFolder() + File.separator + "groups.json"));
+        checkJson();
+    }
+
+    private static void checkJson() {
+        for (String group : groups.getDefaults().keySet()) {
+            JSONObject jsonObject = groups.getObject(group);
             if (jsonObject.get("chatMode") == null) {
                 jsonObject.put("chatMode", false);
             }
@@ -21,7 +29,7 @@ public class GroupManager {
                 jsonObject.put("permissions", new JSONArray());
             }
         }
-        MainClass.getGroups().save();
+        groups.save();
     }
 
     public static void add(String group) {
@@ -31,27 +39,27 @@ public class GroupManager {
         jsonObject.put("chatMode", false);
         jsonObject.put("permissions", jsonArray);
 
-        MainClass.getGroups().addRawData(group, jsonObject);
-        MainClass.getGroups().save();
+        groups.addRawData(group, jsonObject);
+        groups.save();
     }
 
     public static void remove(String group) {
-        MainClass.getGroups().getDefaults().remove(group);
-        MainClass.getGroups().save();
-        MainClass.getGroups().reload();
+        groups.getDefaults().remove(group);
+        groups.save();
+        groups.reload();
     }
 
     public static Set<String> getGroups() {
-        return MainClass.getGroups().getDefaults().keySet();
+        return groups.getDefaults().keySet();
     }
 
     public static boolean isGroupExists(String group) {
-        return MainClass.getGroups().getDefaults().containsKey(group);
+        return groups.getDefaults().containsKey(group);
     }
 
     public static List<String> getPermissions(String group) {
         List<String> permissions = new ArrayList<>();
-        JSONArray permissionsArray = (JSONArray) MainClass.getGroups().getObject(group).get("permissions");
+        JSONArray permissionsArray = (JSONArray) groups.getObject(group).get("permissions");
         for (int i = 0; i < permissionsArray.size(); i++) {
             permissions.add(permissionsArray.get(i).toString());
         }
@@ -63,18 +71,18 @@ public class GroupManager {
     }
 
     public static void addPermission(String group, String permission) {
-        JSONObject getUser = MainClass.getGroups().getObject(group);
+        JSONObject getUser = groups.getObject(group);
         JSONArray getArray = (JSONArray) getUser.get("permissions");
         getArray.add(permission);
-        MainClass.getGroups().save();
+        groups.save();
     }
 
     public static void removePermission(String group, String permission) {
-        JSONObject getUser = MainClass.getGroups().getObject(group);
+        JSONObject getUser = groups.getObject(group);
         JSONArray getArray = (JSONArray) getUser.get("permissions");
         if (hasPermission(group, permission)) {
             getArray.remove(permission);
-            MainClass.getGroups().save();
+            groups.save();
         }
     }
 
@@ -88,7 +96,7 @@ public class GroupManager {
     }
 
     public static boolean hasGroupUser(String group) {
-        for (String username : MainClass.getUsers().getDefaults().keySet()) {
+        for (String username : UserManager.getUsers()) {
             if (UserManager.getGroup(username).equalsIgnoreCase(group)) {
                 return true;
             }
@@ -97,13 +105,13 @@ public class GroupManager {
     }
 
     public static boolean isChatModeEnabled(String group) {
-        return (boolean) ((JSONObject) MainClass.getGroups().getDefaults().get(group)).get("chatMode");
+        return (boolean) ((JSONObject) groups.getDefaults().get(group)).get("chatMode");
     }
 
     public static void setChatMode(String group, boolean enabled) {
-        JSONObject getGroup = MainClass.getGroups().getObject(group);
+        JSONObject getGroup = groups.getObject(group);
         getGroup.replace("chatMode", enabled);
-        MainClass.getGroups().save();
+        groups.save();
     }
 
 }

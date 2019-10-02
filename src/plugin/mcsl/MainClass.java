@@ -14,21 +14,19 @@ public class MainClass extends JavaPlugin {
     public static final String VERSION = "1.2";
 
     private static String prefix = "[MinecraftServerLauncher] ";
-    private static JsonManager users;
-    private static JsonManager groups;
+    private static File pluginFolder;
 
     @Override
     public void onEnable() {
+        pluginFolder = getDataFolder();
         saveDefaultConfig();
         this.getCommand("mcserverlauncher").setExecutor(new Command());
         this.getServer().getPluginManager().registerEvents(new EventHandlers(), this);
-        users = new JsonManager(new File(getDataFolder() + File.separator + "users.json"));
-        groups = new JsonManager(new File(getDataFolder() + File.separator + "groups.json"));
         FileManager.setRoot(getDataFolder());
         FileManager.setServerRoot(getServer().getWorldContainer());
         FileManager.checkFiles();
-        UserManager.checkJson();
-        GroupManager.checkJson();
+        GroupManager.init();
+        UserManager.init();
 
         String language = (Locale.getDefault().getLanguage().equalsIgnoreCase("hu") || Locale.getDefault().getLanguage().equalsIgnoreCase("en") ? Locale.getDefault().getLanguage() : "en");
         if (getConfig().contains("language") && FileManager.getFileNamesInJarPath("plugin/mcsl/resources/languages").contains(getConfig().getString("language") + ".properties")) {
@@ -37,10 +35,10 @@ public class MainClass extends JavaPlugin {
         Language.loadLanguage(language);
 
         Server.startServer(getConfig().getInt("port"));
-        if (getGroups().getDefaults().size() == 0) {
+        if (GroupManager.getGroups().size() == 0) {
             System.out.println(getPrefix() + Language.getText("nogroupfoundalert"));
         }
-        if (getUsers().getDefaults().size() == 0) {
+        if (UserManager.getUsers().size() == 0) {
             System.out.println(getPrefix() + Language.getText("nouserfoundalert"));
         }
         if (UpdateManager.needUpdate()) {
@@ -54,15 +52,11 @@ public class MainClass extends JavaPlugin {
         Server.stopServer();
     }
 
+    public static File getPluginFolder() {
+        return pluginFolder;
+    }
+
     public static String getPrefix() {
         return prefix;
-    }
-
-    public static JsonManager getUsers() {
-        return users;
-    }
-
-    public static JsonManager getGroups() {
-        return groups;
     }
 }

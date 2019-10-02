@@ -12,6 +12,10 @@ public class Command implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
         if (args.length > 0) {
+            if (!(sender.hasPermission("mcserverlauncher.*") || sender.hasPermission("mcserverlauncher." + args[0]))) {
+                sender.sendMessage(MainClass.getPrefix() + Language.getText("nopermission"));
+                return true;
+            }
             if (args[0].equalsIgnoreCase("adduser")) {
                 if (args.length > 3) {
                     if (!UserManager.isUserExists(args[1])) {

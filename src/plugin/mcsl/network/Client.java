@@ -36,7 +36,6 @@ public class Client {
         } else {
             auth(data);
         }
-
     }
 
     public void sendData(String data) {

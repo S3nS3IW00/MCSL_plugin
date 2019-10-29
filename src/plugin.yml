@@ -1,7 +1,7 @@
 main: plugin.mcsl.MainClass
-version: 2.0
+version: 0.1.0-beta
 name: MinecraftServerLauncher
-description: Official Minecraft Server Launcher application plugin
+description: Official Minecraft Server Launcher plugin
 author: S3nS3IW00
 website: https://mcsl.app
 

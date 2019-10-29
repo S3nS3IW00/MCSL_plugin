@@ -13,6 +13,7 @@ public class WaitForConnection extends Thread {
             try {
                 Socket client = Server.getServer().accept();
                 System.out.println("[" + client.getInetAddress().getHostAddress() + "] " + Language.getText("clienttryingconnectserver"));
+                new Client(client);
             } catch (IOException e) {
                 //empty catch block
             }

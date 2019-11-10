@@ -1,6 +1,5 @@
 package plugin.mcsl.network;
 
-import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import plugin.mcsl.managers.*;
@@ -89,8 +88,6 @@ public class Client {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    org.apache.logging.log4j.core.Logger consoleLogger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
-                    consoleLogger.addFilter(new ReadOutput(this));
                 } else {
                     sendData("#showwarndialog;onlychat");
                     try {

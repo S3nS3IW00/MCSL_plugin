@@ -5,17 +5,13 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.message.Message;
+import plugin.mcsl.managers.User;
+import plugin.mcsl.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ReadOutput implements Filter {
-
-    private Client client;
-
-    ReadOutput(Client client) {
-        this.client = client;
-    }
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM hh:mm:ss");
 
@@ -99,8 +95,11 @@ public class ReadOutput implements Filter {
     @Override
     public Result filter(LogEvent logEvent) {
         String message = logEvent.getMessage().getFormattedMessage();
-        if (!client.getClient().isClosed()) {
-            client.sendData("[" + new SimpleDateFormat("HH:mm:ss").format(logEvent.getTimeMillis()) + " " + logEvent.getLevel() + "]: " + /*ChatColor.stripColor(message)*/message);
+        for (User user : Utils.connectedUsers) {
+            Client client = user.getClient();
+            if (!client.getClient().isClosed()) {
+                client.sendData("[" + new SimpleDateFormat("HH:mm:ss").format(logEvent.getTimeMillis()) + " " + logEvent.getLevel() + "]: " + /*ChatColor.stripColor(message)*/message);
+            }
         }
         return null;
     }

@@ -1,9 +1,11 @@
 package plugin.mcsl;
 
+import org.apache.logging.log4j.LogManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.mcsl.commands.Command;
 import plugin.mcsl.event.EventHandlers;
 import plugin.mcsl.managers.*;
+import plugin.mcsl.network.ReadOutput;
 import plugin.mcsl.network.Server;
 
 import java.io.File;
@@ -31,6 +33,9 @@ public class MainClass extends JavaPlugin {
         GroupManager.init();
         UserManager.init();
 
+        org.apache.logging.log4j.core.Logger consoleLogger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
+        consoleLogger.addFilter(new ReadOutput());
+
         String language = (Locale.getDefault().getLanguage().equalsIgnoreCase("hu") || Locale.getDefault().getLanguage().equalsIgnoreCase("en") ? Locale.getDefault().getLanguage() : "en");
         if (getConfig().contains("language") && FileManager.getFileNamesInJarPath("plugin/mcsl/resources/languages").contains(getConfig().getString("language") + ".properties")) {
             language = getConfig().getString("language");
@@ -51,7 +56,7 @@ public class MainClass extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        saveDefaultConfig();
+        saveConfig();
         Server.stopServer();
     }
 

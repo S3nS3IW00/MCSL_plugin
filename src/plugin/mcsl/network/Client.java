@@ -106,7 +106,6 @@ public class Client {
             System.out.println("[" + client.getInetAddress().getHostAddress() + "] " + Language.getText("clientfailedconnect"));
             disconnect();
         }
-
     }
 
     public Socket getClient() {

@@ -25,14 +25,14 @@ public class MainClass extends JavaPlugin {
     public void onEnable() {
         pluginFolder = getDataFolder();
         saveDefaultConfig();
-        this.getCommand("mcserverlauncher").setExecutor(new Command());
-        this.getServer().getPluginManager().registerEvents(new EventHandlers(), this);
         FileManager.setRoot(getDataFolder());
         FileManager.setServerRoot(getServer().getWorldContainer());
         FileManager.checkFiles();
         GroupManager.init();
         UserManager.init();
 
+        this.getCommand("mcserverlauncher").setExecutor(new Command());
+        this.getServer().getPluginManager().registerEvents(new EventHandlers(), this);
         org.apache.logging.log4j.core.Logger consoleLogger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
         consoleLogger.addFilter(new ReadOutput());
 

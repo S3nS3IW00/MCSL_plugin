@@ -21,6 +21,7 @@ public class FileManager {
         chatLog = new File(getRoot() + File.separator + "chatlog.txt");
         if (!chatLog.exists()) {
             try {
+                chatLog.getParentFile().mkdir();
                 chatLog.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();

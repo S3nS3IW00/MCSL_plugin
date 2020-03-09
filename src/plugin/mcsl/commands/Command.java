@@ -204,7 +204,7 @@ public class Command implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("info")) {
                 sender.sendMessage("-----[MinecraftServerLauncher]-----\n" +
-                        "- " + Language.getText("serverisrunningonport") + " " + Server.getPort() + "\n" +
+                        "- " + Language.getText("serverisrunningonport", Server.getPort()) + "\n" +
                         "- " + Utils.connectedUsers.size() + " " + Language.getText("clientsconnected") + "\n" +
                         "-----[]-----");
             } else {

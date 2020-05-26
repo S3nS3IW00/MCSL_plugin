@@ -1,7 +1,7 @@
 main: plugin.mcsl.MainClass
 version: 0.1.0-beta
 name: MinecraftServerLauncher
-description: Official Minecraft Server Launcher plugin
+description: Official Minecraft Server Launcher plugin for external connection
 author: S3nS3IW00
 website: https://mcsl.app
 
@@ -10,7 +10,7 @@ commands:
     aliases: [mcsl]
     usage: <command>
     default: op
-    description: Main command of Minecraft Server Launcher
+    description: Main command that shows the arguments
 
 permissions:
   mcserverlauncher.command:

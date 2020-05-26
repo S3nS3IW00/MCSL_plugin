@@ -203,10 +203,10 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(MainClass.getPrefix() + Language.getText("kickusage"));
                 }
             } else if (args[0].equalsIgnoreCase("info")) {
-                sender.sendMessage("-----[MinecraftServerLauncher]-----\n" +
-                        "- " + Language.getText("serverisrunningonport", Server.getPort()) + "\n" +
-                        "- " + Utils.connectedUsers.size() + " " + Language.getText("clientsconnected") + "\n" +
-                        "-----[]-----");
+                sender.sendMessage("-----[MinecraftServerLauncher]-----");
+                sender.sendMessage("- " + Language.getText("serverisrunningonport", Server.getPort()));
+                sender.sendMessage("- " + Utils.connectedUsers.size() + " " + Language.getText("clientsconnected"));
+                sender.sendMessage("-----[]-----");
             } else {
                 showHelp(sender);
             }
@@ -218,22 +218,22 @@ public class Command implements CommandExecutor {
     }
 
     private void showHelp(CommandSender sender) {
-        sender.sendMessage("-----[MinecraftServerLauncher]-----\n" +
-                "- /mcsl adduser <" + Language.getText("username") + "> <" + Language.getText("password") + ">\n" +
-                "- /mcsl removeuser <" + Language.getText("username") + ">\n" +
-                "- /mcsl addpermission <" + Language.getText("group") + "> <" + Language.getText("permission") + ">\n" +
-                "- /mcsl removepermission <" + Language.getText("group") + "> <" + Language.getText("permission") + ">\n" +
-                "- /mcsl addgroup <" + Language.getText("group") + ">\n" +
-                "- /mcsl removegroup <" + Language.getText("group") + ">\n" +
-                "- /mcsl changeuserpassword <" + Language.getText("username") + "> <" + Language.getText("password") + ">\n" +
-                "- /mcsl changeusergroup <" + Language.getText("username") + "> <" + Language.getText("group") + ">\n" +
-                "- /mcsl togglechatmode <" + Language.getText("group") + ">\n" +
-                "- /mcsl grouplist\n" +
-                "- /mcsl userlist\n" +
-                "- /mcsl onlineuserlist\n" +
-                "- /mcsl permissionlist <" + Language.getText("group") + ">\n" +
-                "- /mcsl kick <" + Language.getText("username") + ">\n" +
-                "- /mcsl info\n" +
-                "-----[]-----");
+        sender.sendMessage("-----[MinecraftServerLauncher]-----");
+        sender.sendMessage("- /mcsl adduser <" + Language.getText("username") + "> <" + Language.getText("password") + ">");
+        sender.sendMessage("- /mcsl removeuser <" + Language.getText("username") + ">");
+        sender.sendMessage("- /mcsl addpermission <" + Language.getText("group") + "> <" + Language.getText("permission") + ">");
+        sender.sendMessage("- /mcsl removepermission <" + Language.getText("group") + "> <" + Language.getText("permission") + ">");
+        sender.sendMessage("- /mcsl addgroup <" + Language.getText("group") + ">");
+        sender.sendMessage("- /mcsl removegroup <" + Language.getText("group") + ">");
+        sender.sendMessage("- /mcsl changeuserpassword <" + Language.getText("username") + "> <" + Language.getText("password") + ">");
+        sender.sendMessage("- /mcsl changeusergroup <" + Language.getText("username") + "> <" + Language.getText("group") + ">");
+        sender.sendMessage("- /mcsl togglechatmode <" + Language.getText("group") + ">");
+        sender.sendMessage("- /mcsl grouplist");
+        sender.sendMessage("- /mcsl userlist");
+        sender.sendMessage("- /mcsl onlineuserlist");
+        sender.sendMessage("- /mcsl permissionlist <" + Language.getText("group") + ">");
+        sender.sendMessage("- /mcsl kick <" + Language.getText("username") + ">");
+        sender.sendMessage("- /mcsl info");
+        sender.sendMessage("-----[]-----");
     }
 }

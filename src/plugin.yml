@@ -1,5 +1,5 @@
 main: plugin.mcsl.MainClass
-version: 0.1.0-beta
+version: 0.1.2-beta
 name: MinecraftServerLauncher
 description: Official Minecraft Server Launcher plugin for external connection
 author: S3nS3IW00

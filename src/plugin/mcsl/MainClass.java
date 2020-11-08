@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 public class MainClass extends JavaPlugin {
 
-    public static final String VERSION = "0.1.0-beta";
+    public final static String VERSION = "0.1.2-beta";
 
     private static String prefix = "[MinecraftServerLauncher] ";
     private static File pluginFolder;
@@ -50,7 +50,7 @@ public class MainClass extends JavaPlugin {
             System.out.println(getPrefix() + Language.getText("nouserfoundalert"));
         }
         if (UpdateManager.needUpdate()) {
-            System.out.println(getPrefix() + Language.getText("updateavailable", "https://mcsl.app/download"));
+            System.out.println(getPrefix() + Language.getText("updateavailable", UpdateManager.getHtmlUrl()));
         }
     }
 

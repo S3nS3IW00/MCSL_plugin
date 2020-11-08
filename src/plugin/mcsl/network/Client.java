@@ -83,7 +83,7 @@ public class Client {
                 if (!GroupManager.isChatModeEnabled(getUser().getGroup())) {
                     try {
                         for (String line : Files.readAllLines(new File(FileManager.getServerRoot().getAbsolutePath() + "/logs/latest.log").toPath(), Charset.forName("UTF-8"))) {
-                            sendData(line.replaceAll("] \\[.+/", " "));
+                            sendData(line.replaceFirst("] \\[.{1,32}/", " "));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
